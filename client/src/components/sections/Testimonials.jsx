@@ -1,14 +1,5 @@
-import { useState, useEffect } from 'react'
 import useReveal from '../../hooks/useReveal'
-
-const FALLBACK = [
-  { id: 1, name: 'Ayu Maharani', role: 'Content Creator', content: 'Self photo di AF Studio hasilnya keren banget! Lighting oke, backdrop banyak pilihan. Udah jadi langganan tiap bulan 😍', rating: 5, service: 'Self Photo' },
-  { id: 2, name: 'Reza & Dinda', role: 'Couple', content: 'Foto prewedding kami hasilnya beyond expectation! Fotografernya sabar banget. Highly recommended!', rating: 5, service: 'Photoshoot' },
-  { id: 3, name: 'Citra Dewi', role: 'Mahasiswi', content: 'Foto wisuda di AF Studio hasilnya natural dan cantik. Tim-nya friendly banget ✨', rating: 5, service: 'Photoshoot' },
-  { id: 4, name: 'Budi Santoso', role: 'Owner UMKM', content: 'Foto produk jualanku jadi jauh lebih profesional. Penjualan naik setelah ganti foto!', rating: 5, service: 'Photoshoot' },
-  { id: 5, name: 'KKN UMSIDA', role: 'Mahasiswa', content: 'Sewa kamera seminggu untuk dokumentasi KKN. Harga terjangkau, kameranya bagus!', rating: 5, service: 'Rental' },
-  { id: 6, name: 'Nadia Putri', role: 'Influencer', content: 'Lokasi AF Studio instagramable banget! Props-nya lengkap dan hasilnya konsisten bagus 😄', rating: 5, service: 'Self Photo' },
-]
+import { TESTIMONIALS } from '../../data/index.js'
 
 const SERVICE_COLORS = {
   'Self Photo': 'bg-emerald-100 text-emerald-700',
@@ -17,15 +8,8 @@ const SERVICE_COLORS = {
 }
 
 export default function Testimonials() {
-  const [items, setItems] = useState(FALLBACK)
+  const items = TESTIMONIALS
   const ref = useReveal()
-
-  useEffect(() => {
-    fetch('/api/testimonials')
-      .then(r => r.json())
-      .then(data => { if (Array.isArray(data) && data.length) setItems(data) })
-      .catch(() => {})
-  }, [])
 
   return (
     <section id="testimoni" ref={ref} className="section-pad bg-gradient-to-br from-primary/5 via-light to-secondary/5">

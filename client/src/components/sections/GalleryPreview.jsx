@@ -1,27 +1,11 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import useReveal from '../../hooks/useReveal'
-
-const FALLBACK = [
-  { id: 1, title: 'Casual & Natural', category: 'portrait', image_url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80', tags: ['Solo', 'Natural'] },
-  { id: 2, title: 'Fun Squad Goals', category: 'selfphoto', image_url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&q=80', tags: ['Grup', 'Fun'] },
-  { id: 3, title: 'Couple Goals', category: 'couple', image_url: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&q=80', tags: ['Couple', 'Romantic'] },
-  { id: 4, title: 'Product Flatlay', category: 'product', image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80', tags: ['Produk', 'UMKM'] },
-  { id: 5, title: 'Graduation Glow', category: 'portrait', image_url: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&q=80', tags: ['Wisuda', 'Formal'] },
-  { id: 6, title: 'Family Warmth', category: 'family', image_url: 'https://images.unsplash.com/photo-1511895426328-dc8714191011?w=500&q=80', tags: ['Keluarga'] },
-]
+import { GALLERY } from '../../data/index.js'
 
 export default function GalleryPreview() {
-  const [items, setItems] = useState(FALLBACK)
+  const items = GALLERY.slice(0, 6)
   const ref = useReveal()
-
-  useEffect(() => {
-    fetch('/api/gallery?limit=6')
-      .then(r => r.json())
-      .then(data => { if (Array.isArray(data) && data.length) setItems(data) })
-      .catch(() => {})
-  }, [])
 
   return (
     <section id="galeri" ref={ref} className="section-pad bg-light">

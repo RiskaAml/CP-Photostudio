@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { X, Loader2, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 import Footer from '../components/Footer'
+import { GALLERY } from '../data/index.js'
 
 const CATS = [
   { key: 'all', label: 'Semua' },
@@ -11,30 +12,11 @@ const CATS = [
   { key: 'product', label: '📦 Produk' },
 ]
 
-const FALLBACK = [
-  { id: 1, title: 'Casual & Natural', category: 'portrait', image_url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', tags: ['Solo', 'Natural', 'Santai'] },
-  { id: 2, title: 'Fun Group Vibes', category: 'selfphoto', image_url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80', tags: ['Grup', 'Fun', 'Energetic'] },
-  { id: 3, title: 'Couple Goals', category: 'couple', image_url: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=80', tags: ['Couple', 'Romantic'] },
-  { id: 4, title: 'Product Flatlay', category: 'product', image_url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80', tags: ['Produk', 'UMKM'] },
-  { id: 5, title: 'Graduation Glow', category: 'portrait', image_url: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80', tags: ['Wisuda', 'Formal'] },
-  { id: 6, title: 'Family Warmth', category: 'family', image_url: 'https://images.unsplash.com/photo-1511895426328-dc8714191011?w=600&q=80', tags: ['Keluarga'] },
-  { id: 7, title: 'Mirror Selfie', category: 'selfphoto', image_url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', tags: ['Solo', 'Mirror'] },
-  { id: 8, title: 'Editorial Dark', category: 'portrait', image_url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', tags: ['Moody', 'Fashion'] },
-]
-
 export default function GalleryPage() {
-  const [items, setItems] = useState(FALLBACK)
-  const [loading, setLoading] = useState(true)
+  const [items] = useState(GALLERY)
+  const [loading] = useState(false)
   const [cat, setCat] = useState('all')
   const [lightbox, setLightbox] = useState(null)
-
-  useEffect(() => {
-    fetch('/api/gallery')
-      .then(r => r.json())
-      .then(data => { if (Array.isArray(data) && data.length) setItems(data) })
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [])
 
   const filtered = cat === 'all' ? items : items.filter(i => i.category === cat)
 

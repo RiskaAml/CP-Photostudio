@@ -1,30 +1,13 @@
-import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Check, Star, Loader2, MessageCircle } from 'lucide-react'
+import { ArrowLeft, Check, Star, MessageCircle } from 'lucide-react'
 import Footer from '../components/Footer'
+import { SERVICES } from '../data/index.js'
 
 export default function ServiceDetail() {
   const { slug } = useParams()
-  const [service, setService] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const service = SERVICES.find(s => s.slug === slug) ?? null
 
-  useEffect(() => {
-    setLoading(true)
-    fetch(`/api/services/${slug}`)
-      .then(r => r.json())
-      .then(data => setService(data))
-      .catch(() => setService(null))
-      .finally(() => setLoading(false))
-  }, [slug])
-
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center gap-3 text-muted">
-      <Loader2 size={20} className="animate-spin" />
-      <span>Memuat...</span>
-    </div>
-  )
-
-  if (!service || service.error) return (
+  if (!service) return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center px-5">
       <div className="text-5xl">😕</div>
       <h1 className="font-display font-700 text-2xl text-dark">Layanan tidak ditemukan</h1>

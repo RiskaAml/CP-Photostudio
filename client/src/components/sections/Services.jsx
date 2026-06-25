@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import useReveal from '../../hooks/useReveal'
@@ -43,28 +42,8 @@ const FALLBACK = [
 ]
 
 export default function Services() {
-  const [services, setServices] = useState(FALLBACK)
+  const services = FALLBACK
   const ref = useReveal()
-
-  useEffect(() => {
-    fetch('/api/services')
-      .then(r => r.json())
-      .then(data => {
-        if (Array.isArray(data) && data.length) {
-          // Merge API data with local fallback (untuk gambar & warna)
-          setServices(FALLBACK.map((fb, i) => ({
-            ...fb,
-            ...(data[i] || {}),
-            img: fb.img, // tetap pakai gambar lokal
-            color: fb.color,
-            border: fb.border,
-            badge: fb.badge,
-            dot: fb.dot,
-          })))
-        }
-      })
-      .catch(() => {})
-  }, [])
 
   return (
     <section id="layanan" ref={ref} className="section-pad bg-light">
